@@ -1,0 +1,166 @@
+@import url('~kendo-ui-core/css/web/kendo.common.css');
+@import url('~lightcase/src/css/lightcase.css');
+@import url('https://fonts.googleapis.com/css?family=Alegreya|Alegreya+SC|Alegreya+Sans|Alegreya+Sans+SC|Alice|Amatic+SC|Andika|Anonymous+Pro|Arimo|Arsenal|Bad+Script|Caveat|Comfortaa|Cormorant|Cormorant+Garamond|Cormorant+Infant|Cormorant+SC|Cormorant+Unicase|Cousine|Cuprum|Didact+Gothic|EB+Garamond|El+Messiri|Exo+2|Fira+Code|Fira+Mono|Fira+Sans|Fira+Sans+Condensed|Fira+Sans+Extra+Condensed|Forum|Gabriela|IBM+Plex+Mono|IBM+Plex+Sans|IBM+Plex+Serif|Istok+Web|Jura|Kelly+Slab|Kosugi|Kosugi+Maru|Kurale|Ledger|Literata|Lobster|Lora|M+PLUS+1p|M+PLUS+Rounded+1c|Marck+Script|Marmelad|Merriweather|Montserrat|Montserrat+Alternates|Neucha|Noto+Sans|Noto+Sans+SC|Noto+Serif|Noto+Serif+SC|Noto+Serif+TC|Old+Standard+TT|Open+Sans|Open+Sans+Condensed:300|Oranienbaum|Oswald|PT+Mono|PT+Sans|PT+Sans+Caption|PT+Sans+Narrow|PT+Serif|PT+Serif+Caption|Pacifico|Pangolin|Pattaya|Philosopher|Play|Playfair+Display|Playfair+Display+SC|Podkova|Poiret+One|Prata|Press+Start+2P|Prosto+One|Roboto|Roboto+Condensed|Roboto+Mono|Roboto+Slab|Rubik|Rubik+Mono+One|Ruslan+Display|Russo+One|Sawarabi+Gothic|Scada|Seymour+One|Source+Code+Pro|Source+Sans+Pro|Spectral|Spectral+SC|Stalinist+One|Tenor+Sans|Tinos|Ubuntu|Ubuntu+Condensed|Ubuntu+Mono|Underdog|Vollkorn|Vollkorn+SC|Yanone+Kaffeesatz|Yeseva+One&display=swap');
+@import url('~fomantic-ui-css/semantic.css');
+@import url('~animate.css/animate.css');
+@import url('~hover.css/css/hover.css');
+@import url('~aos/dist/aos.css');
+@import url('~lightslider/dist/css/lightslider.css');
+
+[hidden] {
+  display: none !important;
+}
+
+p:empty:before {
+  content: '\A';
+  white-space: pre;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .stackable.grid .ui.vertical.divider {
+    display: none!important;
+  }
+}
+
+.ui.free.container {
+  width: 100vw!important;
+  max-width: none;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw!important;
+  margin-right: -50vw!important;
+}
+
+body>.pusher {
+  position: relative;
+  height: auto;
+  /* Это для сафари */
+  min-height: 100%;
+}
+
+div[data-relative]:not([id]) {
+  position: relative;
+}
+
+div[data-static]:not([id]) {
+  position: static;
+}
+
+div[data-absolute]:not([id]) {
+  position: absolute;
+}
+
+div[data-fixed]:not([id]) {
+  position: fixed;
+}
+
+div[data-relative]:not([id]),
+div[data-static]:not([id]),
+div[data-absolute]:not([id]),
+div[data-fixed]:not([id]) {
+  /*visibility: hidden;*/
+  pointer-events: none;
+}
+
+body>.pusher,
+div[data-relative]:not([id]),
+div[data-static]:not([id]),
+div[data-absolute]:not([id]),
+div[data-fixed]:not([id]) {
+  -ms-flex-direction: column;
+  -ms-flex: 1 1 auto;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+div[data-relative]:not([id]),
+div[data-static]:not([id]),
+div[data-absolute]:not([id]),
+div[data-fixed]:not([id]) {
+  height: 100%;
+  /* для IE11 */
+}
+
+div[data-relative]:not([id])>div[id],
+div[data-static]:not([id])>div[id],
+div[data-absolute]:not([id])>div[id],
+div[data-fixed]:not([id])>div[id] {
+  position: relative;
+  pointer-events: auto;
+  /*visibility: visible;*/
+  /*overflow: hidden;*/
+  margin: auto;
+}
+
+/*div[data-relative]:not([id])>#content,
+div[data-static]:not([id])>#content,*/
+
+div[data-absolute]:not([id])>#content,
+div[data-fixed]:not([id])>#content {
+  overflow-y: auto;
+}
+
+/*****************************************************/
+
+/* tinyMCE */
+
+/* Image captions using the HTML5 figure element */
+
+figure.align-left {
+  float: left;
+}
+
+figure.align-right {
+  float: right;
+}
+
+figure.image {
+  display: inline-block;
+  border: 1px solid gray;
+  margin: 0 2px 0 1px;
+  background: #f5f2f0;
+}
+
+figure.image img {
+  margin: 8px 8px 0 8px;
+}
+
+figure.image figcaption {
+  margin: 6px 8px 6px 8px;
+  text-align: center;
+}
+
+/*
+ Alignment using classes rather than inline styles
+ check out the "formats" option
+*/
+
+img.align-left {
+  float: left;
+}
+
+img.align-right {
+  float: right;
+}
+
+/* Basic styles for Table of Contents plugin (toc) */
+
+.mce-toc {
+  border: 1px solid gray;
+}
+
+.mce-toc h2 {
+  margin: 4px;
+}
+
+.mce-toc li {
+  list-style-type: none;
+}
