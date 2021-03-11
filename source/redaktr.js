@@ -13,6 +13,7 @@ import "./redaktr/rhashcalc.js";
 import "./redaktr/rchildren.js";
 import "./redaktr/rdeck.js";
 
+
 (function () {
   var search = window.location.hostname === "www.redaktr.com" ? "?" + window.btoa(Math.random()) : window.location.search.charAt(0) + window.btoa(unescape(encodeURIComponent(window.location.search))),
     pathname = window.location.hostname === "redaktr.com" || window.location.hostname === "m.redaktr.com" ? "/" + window.location.pathname.split("/")[1] + "/" : "/",
