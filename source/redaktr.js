@@ -558,6 +558,7 @@ import "./redaktr.css";
         }
       }
     });
+    
     $(sel + " [data-id=icongrid]").rcorrector({
       index: index,
       pathname: pathname,
