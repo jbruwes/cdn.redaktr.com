@@ -15,7 +15,7 @@ module.exports = {
       jQuery: 'jquery',
       jsel: 'jsel',
       AOS: 'aos',
-      tsParticles: 'tsparticles'
+      tsparticles: 'tsparticles'
     }),
     new copyWebpackPlugin([
       { from: 'resource/robots.txt' },

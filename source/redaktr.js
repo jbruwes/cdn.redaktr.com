@@ -2,7 +2,6 @@ import "lightcase";
 import "lightslider";
 import "fomantic-ui-css/semantic.js";
 import "pure";
-import "jquery-particles";
 
 import "./redaktr/rsidebar.js";
 import "./redaktr/rmenu.js";
@@ -386,24 +385,14 @@ window.jQuery = jQuery;
       .attr("contenteditable", "false")
       .each(function () {
         try {
-
-          $(this)
-            .particles()
-            .ajax("https://cdn.redaktr.com/particles/" +
-              ($(this).data("particles")
-                ? $(this).data("particles")
-                : "default") +
-              ".json");
-          /*
-                    tsParticles.loadJSON(
-                      this.id,
-                      "https://cdn.redaktr.com/resource/particles/" +
-                      ($(this).data("particles")
-                        ? $(this).data("particles")
-                        : "default") +
-                      ".json"
-                    );
-                    */
+          tsparticles.tsParticles.loadJSON(
+            this.id,
+            "https://cdn.redaktr.com/particles/" +
+            ($(this).data("particles")
+              ? $(this).data("particles")
+              : "default") +
+            ".json"
+          );
         } catch (e) {
           console.log(e.message);
         }
