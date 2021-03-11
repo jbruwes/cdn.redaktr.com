@@ -11,8 +11,8 @@ module.exports = {
   entry: './source/redaktr.js',
   plugins: [
     new webpack.ProvidePlugin({
-      "window.$": 'jquery',
-      "window.jQuery": 'jquery',
+      window.$: 'jquery',
+      window.jQuery: 'jquery',
       jsel: 'jsel',
       AOS: 'aos',
       tsParticles: 'tsparticles'
