@@ -1,22 +1,29 @@
-const 
-path = require('path'),
-webpack = require('webpack'),
-MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const
+  path = require('path'),
+  webpack = require('webpack'),
+  MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+  CssMinimizerPlugin = require('css-minimizer-webpack-plugin'),
+  CopyWebpackPlugin = require('copy-webpack-plugin');
+
 
 module.exports = {
   entry: './source/redaktr.js',
   plugins: [
     new webpack.ProvidePlugin({
-	$: 'jquery',
-	jQuery: 'jquery',
-  jsel: 'jsel',
-  AOS: 'aos',
-  tsParticles: 'tsparticles'
+      $: 'jquery',
+      jQuery: 'jquery',
+      jsel: 'jsel',
+      AOS: 'aos',
+      tsParticles: 'tsparticles'
     }),
     new MiniCssExtractPlugin({
-		filename:"redaktr.min.css"
-    })
+      filename: "redaktr.min.css"
+    }),
+    new copyWebpackPlugin([
+      { from: 'resource/robots.txt' },
+      { from: 'resource/particles', to: 'resource/particles' }
+    ])
   ],
   output: {
     filename: 'redaktr.min.js',
@@ -25,17 +32,17 @@ module.exports = {
   },
   module: {
     rules: [
-	{
-	test: /\.css$/i,
-		    use: [ MiniCssExtractPlugin.loader, 'css-loader' ]
-		},{
-         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-         type: 'asset/resource',
-       },
-       {
-         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-         type: 'asset/resource',
-       }
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      }, {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      }
     ]
   },
   optimization: {

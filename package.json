@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^3.6.0",
+    "copy-webpack-plugin": "^5.1.1",
     "mini-css-extract-plugin": "^1.3.9",
     "css-minimizer-webpack-plugin": "^1.2.0",
     "webpack": "^5.4.0",
@@ -18,7 +19,6 @@
   },
   "dependencies": {
     "jquery": "^3.5.1",
-    "kendo-ui-core": "^2019.1.220",
     "lightcase": "^2.5.0",
     "lightslider": "^1.1.6",
     "fomantic-ui-css": "^2.8.7",
