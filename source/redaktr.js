@@ -379,7 +379,7 @@ function rParticles(hash, sel) {
   $(sel + '  [data-id=particles]:not([contenteditable])').attr('contenteditable', 'false').each(function () {
     try {
       //tsParticles.loadJSON(this.id, "//cdn.redaktr.com/particles/" + ($(this).data("particles") ? $(this).data("particles") : "default") + ".json");
-      tsParticles.load(this.id, particles[($(this).data("particles") ? $(this).data("particles") : "default")]);
+      tsparticles.tsParticles.load(this.id, particles[($(this).data("particles") ? $(this).data("particles") : "default")]);
     } catch (e) {
       console.log(e.message);
     }
