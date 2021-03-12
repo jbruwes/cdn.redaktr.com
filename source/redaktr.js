@@ -178,7 +178,7 @@ function rAccordion(hash, sel) {
 /** Запуск carousel*/
 function rCarousel(hash, sel) {
   $(sel + ' [data-id=carousel][data-auto]').each(function () {
-    var dataChildren = getChildren($(this), "*[string(@image)]"),
+    var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -276,7 +276,7 @@ function rDeck(hash, sel) {
 /** Запуск cardgrid */
 function rCardgrid(hash, sel) {
   $(sel + ' [data-id=cardgrid][data-auto]').each(function () {
-    var dataChildren = getChildren($(this), "*[string(@image)]"),
+    var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -333,7 +333,7 @@ function rCardgrid(hash, sel) {
 /** Запуск particles */
 function rParticles(hash, sel) {
   $(sel + ' [data-id=particles][data-auto]').each(function () {
-    var dataChildren = getChildren($(this)),
+    var dataChildren = getChildren(hash, $(this)),
       date = $(this).data("date"),
       description = $(this).data("description"),
       unlink = $(this).data("path");
@@ -389,7 +389,7 @@ function rParticles(hash, sel) {
 /** Запуск list */
 function rList(hash, sel) {
   $(sel + ' [data-id=list][data-auto]').each(function () {
-    var dataChildren = getChildren($(this), "*[string(@image)]"),
+    var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -455,7 +455,7 @@ function rList(hash, sel) {
 /** Запуск header */
 function rHeader(hash, sel) {
   $(sel + ' [data-id=header][data-auto]').each(function () {
-    var dataChildren = getChildren($(this)),
+    var dataChildren = getChildren(hash, $(this)),
       date = $(this).data("date"),
       description = $(this).data("description"),
       unlink = $(this).data("path");
@@ -505,7 +505,7 @@ function rHeader(hash, sel) {
 /** Запуск сетки с иконками */
 function rIcongrid(hash, sel) {
   $(sel + ' [data-id=icongrid][data-auto]').each(function () {
-    var dataChildren = getChildren($(this), '*[string(@id)]'),
+    var dataChildren = getChildren(hash, $(this), '*[string(@id)]'),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -551,7 +551,7 @@ function rIcongrid(hash, sel) {
 /** Запуск breadcrumbs */
 function rBreadcrumbs(hash, sel) {
   $(sel + ' [data-id=breadcrumbs][data-auto]').each(function () {
-    var dataChildren = getChildren($(this), '*[string(@id)]', true),
+    var dataChildren = getChildren(hash, $(this), '*[string(@id)]', true),
       date = $(this).data("date"),
       description = $(this).data("description"),
       reveal = $(this).data("reveal");
