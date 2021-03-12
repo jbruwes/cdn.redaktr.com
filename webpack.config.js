@@ -20,8 +20,7 @@ module.exports = {
     new copyWebpackPlugin([
       { from: 'resource/robots.txt' },
       { from: 'resource/redaktr.css', to: 'redaktr.min.css' },
-      { from: 'resource/redaktr.cdn.css', to: 'redaktr.cdn.min.css' },
-      { from: 'resource/particles', to: 'particles' }
+      { from: 'resource/redaktr.cdn.css', to: 'redaktr.cdn.min.css' }
     ]),
     new MinifyBundledPlugin({
       patterns: ['*.css','**/particles/*.json'],

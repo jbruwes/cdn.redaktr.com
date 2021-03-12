@@ -17,13 +17,8 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
-    "fomantic-ui-css": "^2.8.7",
     "jquery": "^3.5.1",
-    "jquery-particles": "^1.19.3",
     "jsel": "^1.1.6",
-    "lightcase": "^2.5.0",
-    "lightslider": "^1.1.6",
-    "pure": "^2.85.0",
     "tsparticles": "^1.19.3"
   }
 }
