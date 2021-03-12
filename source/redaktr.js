@@ -11,8 +11,8 @@ import "./redaktr/rdeck.js";
 var particles = {};
 
 particles.default = require('./particles/default.json');
-particles.bubble  = require('./particles/bubble.json');
-particles.nasa  = require('./particles/nasa.json');
+particles.bubble = require('./particles/bubble.json');
+particles.nasa = require('./particles/nasa.json');
 particles.snow = require('./particles/snow.json');
 
 window.$ = $;
@@ -384,7 +384,6 @@ function rParticles(hash, sel) {
       console.log(e.message);
     }
   });
-  
 }
 
 /** Запуск list */
@@ -673,19 +672,24 @@ $.getJSON("index.cdn.json" + search, defIndexCdnJsonDone).done(scripts.indexCdnJ
 });
 
 $(function () {
-  $("body").rlightcase();
+  $.when(scripts.lightcase).done(function () {
+    $("body").rlightcase();
+  });
   AOS.init();
   $.when(scripts.indexJson).done(function () {
     $.rhashchange.defaults.onhashchange = onhashchange;
+
     var rsidebar = $("#content").data("turbomenu");
-    if (typeof rsidebar === "undefined" || Boolean(rsidebar)) {
+    if (typeof rsidebar === "undefined" || Boolean(rsidebar)) $.when(scripts.semantic).done(function () {
       $("body>.ui.main.menu").removeAttr("hidden");
       $.rsidebar({
-        index: index,
-        pathname: pathname,
-        xAmzMetaIdentity: xAmzMetaIdentity,
+        "index": index,
+        "pathname": pathname,
+        "xAmzMetaIdentity": xAmzMetaIdentity
       });
-    }
+    });
+
+
     $(window).on("popstate", function () {
       $.rhashchange({
         index: index,
