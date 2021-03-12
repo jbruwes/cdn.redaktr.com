@@ -384,6 +384,7 @@ function rParticles(hash, sel) {
       console.log(e.message);
     }
   });
+  
 }
 
 /** Запуск list */
