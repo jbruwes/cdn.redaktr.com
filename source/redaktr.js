@@ -7,17 +7,13 @@ import "./redaktr/rcorrector.js";
 import "./redaktr/rhashcalc.js";
 import "./redaktr/rchildren.js";
 import "./redaktr/rdeck.js";
-
 var particles = {};
-
 particles.default = require('./particles/default.json');
 particles.bubble = require('./particles/bubble.json');
 particles.nasa = require('./particles/nasa.json');
 particles.snow = require('./particles/snow.json');
-
 window.$ = $;
 window.jQuery = jQuery;
-
 var search = window.location.hostname === "www.redaktr.com" ? "?" + window.btoa(Math.random()) : window.location.search.charAt(0) + window.btoa(unescape(encodeURIComponent(window.location.search))),
   pathname = window.location.hostname === "redaktr.com" || window.location.hostname === "m.redaktr.com" ? "/" + window.location.pathname.split("/")[1] + "/" : "/",
   scripts = {
@@ -35,6 +31,7 @@ var search = window.location.hostname === "www.redaktr.com" ? "?" + window.btoa(
   usrScripts = [];
 /**
 * Получение массива дочерних объектов.
+* @param {string} hash
 * @param {Object} that - Указатель на текущий объект.
 * @param {string} [attr=""] - Путь xpath.
 * @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self.
@@ -140,7 +137,11 @@ function getChildren(hash, that, attr, ancestor) {
     });
   return dataChildren;
 }
-/** Запуск пользовательского кода из index.js */
+/**
+ * Запуск пользовательского кода из index.js
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function usrCode(hash, sel) {
   $.when(scripts.indexJs).done(function () {
     if (typeof redaktr !== 'undefined' && $.isFunction(redaktr)) $.when(scripts.indexCdnJson).done(function () {
@@ -152,8 +153,11 @@ function usrCode(hash, sel) {
     })
   })
 }
-
-/** Запуск rmenu */
+/**
+ * Запуск rmenu
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rMenu(hash, sel) {
   var rmenu = $("[data-id=rmenu]");
   if (rmenu.length) $.when(scripts.kendo).done(function () {
@@ -165,17 +169,21 @@ function rMenu(hash, sel) {
     rmenu.rmenu("update", hash);
   })
 }
-
-
-/** Запуск accordition */
+/**
+ * Запуск accordition
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rAccordion(hash, sel) {
   $.when(scripts.semantic).done(function () {
     $(sel + ' .ui.accordion').accordion();
   });
 }
-
-
-/** Запуск carousel*/
+/**
+ * Запуск carousel
+ * @param {*} hash 
+ * @param {*} sel 
+*/
 function rCarousel(hash, sel) {
   $(sel + ' [data-id=carousel][data-auto]').each(function () {
     var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
@@ -245,8 +253,11 @@ function rCarousel(hash, sel) {
     });
   });
 }
-
-/** Запуск deck */
+/**
+ * Запуск deck
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rDeck(hash, sel) {
   $(sel + ' [data-id=deck][data-auto]').rdeck({
     "action": "render",
@@ -271,9 +282,11 @@ function rDeck(hash, sel) {
     });
   });
 }
-
-
-/** Запуск cardgrid */
+/**
+ * Запуск cardgrid
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rCardgrid(hash, sel) {
   $(sel + ' [data-id=cardgrid][data-auto]').each(function () {
     var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
@@ -328,9 +341,11 @@ function rCardgrid(hash, sel) {
     });
   });
 }
-
-
-/** Запуск particles */
+/**
+ * Запуск particles 
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rParticles(hash, sel) {
   $(sel + ' [data-id=particles][data-auto]').each(function () {
     var dataChildren = getChildren(hash, $(this)),
@@ -385,8 +400,11 @@ function rParticles(hash, sel) {
     }
   });
 }
-
-/** Запуск list */
+/**
+ * Запуск list
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rList(hash, sel) {
   $(sel + ' [data-id=list][data-auto]').each(function () {
     var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
@@ -450,9 +468,11 @@ function rList(hash, sel) {
     });
   });
 }
-
-
-/** Запуск header */
+/**
+ * Запуск header
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rHeader(hash, sel) {
   $(sel + ' [data-id=header][data-auto]').each(function () {
     var dataChildren = getChildren(hash, $(this)),
@@ -499,10 +519,11 @@ function rHeader(hash, sel) {
     "hash": hash
   });
 }
-
-
-
-/** Запуск сетки с иконками */
+/**
+ * Запуск сетки с иконками
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rIcongrid(hash, sel) {
   $(sel + ' [data-id=icongrid][data-auto]').each(function () {
     var dataChildren = getChildren(hash, $(this), '*[string(@id)]'),
@@ -595,10 +616,11 @@ function rBreadcrumbs(hash, sel) {
     "hash": hash
   });
 }
-
-
-
-/** Запуск embed */
+/**
+ * Запуск embed
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rEmbed(hash, sel) {
   $.when(scripts.semantic).done(function () {
     $(sel + " .ui.embed:not([contenteditable])")
@@ -606,28 +628,38 @@ function rEmbed(hash, sel) {
       .embed();
   });
 }
-/** Запуск sidebar */
+/**
+ * Запуск sidebar
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rSidebar(hash, sel) {
   var rsidebar = $("#content").data("turbomenu");
   if (typeof rsidebar === "undefined" || Boolean(rsidebar)) $.when(scripts.semantic).done(function () {
     $.rsidebar("update", hash);
   });
 }
-
-/** Запуск AOS*/
+/**
+ * Запуск AOS
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function rAos(hash, sel) {
   $("img").on("load", function () {
     AOS.refresh();
   });
   AOS.refresh();
 }
-
-
+/**
+ * 
+ * @param {*} hash 
+ * @param {*} sel 
+ */
 function onhashchange(hash, sel) {
-  sel = sel || "#content";
-
-
-  $.when(scripts.pure).done(function () {
+  /**
+   * 
+   */
+  function runComponents() {
     rCarousel(hash, sel);
     rDeck(hash, sel);
     rCardgrid(hash, sel);
@@ -636,24 +668,32 @@ function onhashchange(hash, sel) {
     rHeader(hash, sel);
     rIcongrid(hash, sel);
     rBreadcrumbs(hash, sel);
-  });
-
+  }
+  sel = sel || "#content";
+  $.when(scripts.pure).done(runComponents);
   rAccordion(hash, sel);
   rEmbed(hash, sel);
   rSidebar(hash, sel);
   usrCode();
   rMenu(hash, sel);
   rAos(hash, sel);
-
   //console.log($(sel + ' [data-paroller-factor]:not([contenteditable])'));
   //$(sel + ' [data-paroller-factor]:not([contenteditable])').attr('contenteditable', 'false').paroller();
   //$('[data-paroller-factor]').paroller();
 };
+/**
+ * 
+ * @param {*} data 
+ */
 function defIndexCdnJsonDone(data) {
   usrScripts = $.map(data, function (val) {
     return $.getScript(val.url);
   });
 }
+/**
+ * 
+ * @param {*} data 
+ */
 function defIndexJsonDone(data) {
   index = data;
 }
@@ -670,7 +710,6 @@ $.getJSON("index.json" + search, defIndexJsonDone).done(scripts.indexJson.resolv
 $.getJSON("index.cdn.json" + search, defIndexCdnJsonDone).done(scripts.indexCdnJson.resolve).fail(function () {
   $.getJSON("/" + xAmzMetaIdentity + ".cdn.json" + search, defIndexCdnJsonDone).always(scripts.indexCdnJson.resolve);
 });
-
 $(function () {
   $.when(scripts.lightcase).done(function () {
     $("body").rlightcase();
@@ -678,7 +717,6 @@ $(function () {
   AOS.init();
   $.when(scripts.indexJson).done(function () {
     $.rhashchange.defaults.onhashchange = onhashchange;
-
     var rsidebar = $("#content").data("turbomenu");
     if (typeof rsidebar === "undefined" || Boolean(rsidebar)) $.when(scripts.semantic).done(function () {
       $("body>.ui.main.menu").removeAttr("hidden");
@@ -688,8 +726,6 @@ $(function () {
         "xAmzMetaIdentity": xAmzMetaIdentity
       });
     });
-
-
     $(window).on("popstate", function () {
       $.rhashchange({
         index: index,
