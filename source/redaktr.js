@@ -1,3 +1,5 @@
+window.$ = $;
+window.jQuery = jQuery;
 import "./redaktr/rsidebar.js";
 import "./redaktr/rmenu.js";
 import "./redaktr/rlightcase.js";
@@ -7,41 +9,76 @@ import "./redaktr/rcorrector.js";
 import "./redaktr/rhashcalc.js";
 import "./redaktr/rchildren.js";
 import "./redaktr/rdeck.js";
-var particles = {};
-particles.default = require('./particles/default.json');
-particles.bubble = require('./particles/bubble.json');
-particles.nasa = require('./particles/nasa.json');
-particles.snow = require('./particles/snow.json');
-window.$ = $;
-window.jQuery = jQuery;
-var search = window.location.hostname === "www.redaktr.com" ? "?" + window.btoa(Math.random()) : window.location.search.charAt(0) + window.btoa(unescape(encodeURIComponent(window.location.search))),
-  pathname = window.location.hostname === "redaktr.com" || window.location.hostname === "m.redaktr.com" ? "/" + window.location.pathname.split("/")[1] + "/" : "/",
-  scripts = {
-    "kendo": $.getScript("https://kendo.cdn.telerik.com/2019.1.220/js/kendo.ui.core.min.js"),
-    "lightcase": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/lightcase/2.5.0/js/lightcase.min.js'),
-    "lightslider": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js'),
-    "semantic": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/semantic.min.js'),
-    "pure": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pure.js/2.83/pure.min.js'),
-    "indexJs": $.Deferred(),
-    "indexJson": $.Deferred(),
-    "indexCdnJson": $.Deferred(),
-  },
-  xAmzMetaIdentity = encodeURIComponent($("base").attr("href").match(/[^\/]+(?=\/$|$)/)),
-  index = {},
-  usrScripts = [];
+/**
+ * Объект c подгруженными пресетами для патиклов
+ * @const {Object}
+ */
+const particles = {
+  "default": require('./particles/default.json'),
+  "bubble": require('./particles/bubble.json'),
+  "nasa": require('./particles/nasa.json'),
+  "snow": require('./particles/snow.json')
+};
+/**
+ * Уникальная строка для обхода кеширования
+ * @const {string}
+ */
+const search = window.location.hostname === "www.redaktr.com" ? "?" + window.btoa(Math.random()) : window.location.search.charAt(0) + window.btoa(unescape(encodeURIComponent(window.location.search)));
+/**
+ * Путь до корня сайта
+ * @const {string}
+ */
+const pathname = window.location.hostname === "redaktr.com" || window.location.hostname === "m.redaktr.com" ? "/" + window.location.pathname.split("/")[1] + "/" : "/";
+/**
+ * Объект с промисами подгружаемых скриптов
+ * @const {Object.<Deferred>}
+ */
+const scripts = {
+  "kendo": $.getScript("https://kendo.cdn.telerik.com/2019.1.220/js/kendo.ui.core.min.js"),
+  "lightcase": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/lightcase/2.5.0/js/lightcase.min.js'),
+  "lightslider": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js'),
+  "semantic": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/semantic.min.js'),
+  "pure": $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pure.js/2.83/pure.min.js'),
+  "indexJs": $.Deferred(),
+  "indexJson": $.Deferred(),
+  "indexCdnJson": $.Deferred()
+};
+/**
+ * AWS Website Id
+ * @const {string}
+ */
+const xAmzMetaIdentity = encodeURIComponent($("base").attr("href").match(/[^\/]+(?=\/$|$)/));
+/**
+ * Структура вебсайта
+ * @type {Object}
+ */
+var index = {};
+/**
+ * Массив промисов пользовательских подгружаемых скриптов
+ * @type {Deferred[]}
+ */
+var usrScripts = [];
 /**
 * Получение массива дочерних объектов.
-* @param {string} hash
-* @param {Object} that - Указатель на текущий объект.
-* @param {string} [attr=""] - Путь xpath.
-* @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self.
+* @param {string} hash - Строка пути относительно корня сайта
+* @param {Object} that - Указатель на текущий объект
+* @param {string} [attr=""] - Путь xpath
+* @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self
+* @return {Array}
 */
 function getChildren(hash, that, attr, ancestor) {
-  var dataHashes = $.trim(that.data("path")),
-    dataChildren = [],
-    deep = that.data("deep"),
-    length = that.data("length"),
-    reveal = that.data("reveal");
+  /**
+   * Пути через запятую, по кторым ищутся дочерние элементы
+   * @type {(string|string[])}
+   */
+  var dataHashes = $.trim(that.data("path"));
+  /**
+   * @type {Array}
+   */
+  var dataChildren = [];
+  var deep = that.data("deep");
+  var length = that.data("length");
+  var reveal = that.data("reveal");
   attr = attr ? attr : "";
   dataHashes = dataHashes ? dataHashes : hash;
   dataHashes = $.map(dataHashes.split(","), function (value, key) {
@@ -687,7 +724,7 @@ function onhashchange(hash, sel) {
  */
 function defIndexCdnJsonDone(data) {
   usrScripts = $.map(data, function (val) {
-    return $.getScript(val.url);
+    if(val.hasOwnProperty('url') && val.url) return $.getScript(val.url);
   });
 }
 /**
