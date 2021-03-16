@@ -59,125 +59,9 @@ var index = {};
  */
 var usrScripts = [];
 /**
-* Получение массива дочерних объектов.
-* @param {string} hash - Строка пути относительно корня сайта
-* @param {Object} that - Указатель на текущий объект
-* @param {string} [attr=""] - Путь xpath
-* @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self
-* @return {Array}
-*/
-function getChildren(hash, that, attr, ancestor) {
-  /**
-   * Пути через запятую, по кторым ищутся дочерние элементы
-   * @type {(string|string[])}
-   */
-  var dataHashes = $.trim(that.data("path"));
-  /**
-   * @type {Array}
-   */
-  var dataChildren = [];
-  var deep = that.data("deep");
-  var length = that.data("length");
-  var reveal = that.data("reveal");
-  attr = attr ? attr : "";
-  dataHashes = dataHashes ? dataHashes : hash;
-  dataHashes = $.map(dataHashes.split(","), function (value, key) {
-    return decodeURIComponent($.trim(value))
-      .replace(/\_/g, " ")
-      .replace(/\%2f/g, "/")
-      .replace(/\%2F/g, "/")
-      .replace(/\/+/g, "/")
-      .replace(/^\/+|\/+$/g, "");
-  });
-  $.each(dataHashes, function (key, dataHash) {
-    try {
-      //$.merge(dataChildren, $.map(jsel(index[0]).selectAll("/*" + (dataHash ? ("/data/*[@value='" + dataHash.split('/').join("']/data/*[@value='") + "']") : "") + (attr ? "/data" : "") + (deep && attr ? '/' : '') + (attr ? "/" : "") + attr), function(value, key) {
-      $.merge(
-        dataChildren,
-        $.map(
-          jsel(index[0]).selectAll(
-            "/*" +
-            (dataHash
-              ? "/data/*[@value='" +
-              dataHash.split("/").join("']/data/*[@value='") +
-              "']"
-              : "") +
-            (attr && !ancestor ? "/data" : "") +
-            (deep && attr && !ancestor ? "/" : "") +
-            (attr ? "/" : "") +
-            (ancestor ? "ancestor-or-self::" : "") +
-            attr +
-            (attr && !ancestor && !reveal ? "[@visible=1]" : "")
-          ),
-          function (value, key) {
-            var calchash = function () {
-              var curValue = value,
-                localHash = [];
-              while (curValue.$level > 2) {
-                curValue = jsel(index[0]).select(
-                  "//*[@id='" + curValue.$parent + "']"
-                );
-                localHash.unshift(curValue.value.replace(/\s/g, "_"));
-              }
-              localHash = localHash.join("/");
-              return localHash ? localHash + "/" : "";
-            },
-              localHash =
-                deep || ancestor
-                  ? calchash()
-                  : dataHash
-                    ? dataHash.replace(/\s/g, "_") + "/"
-                    : "";
-            value._href =
-              "/" +
-              localHash +
-              ((attr || localHash) && value.$level > 1
-                ? value.value.replace(/\s/g, "_") + "/"
-                : "");
-            value._header = value.title ? value.title : value.value;
-            //value._htmlicon = value.icon ? '<i class="' + value.icon + ' icon hvr-icon"></i>' : '';
-            value._icon = value.icon ? value.icon : "linkify";
-            value._backgroundImage = value.image
-              ? "background-image:url(" + value.image + ");"
-              : "";
-            value._miniBasicDate =
-              '<span class="ui mini basic label" style="margin:0"><i class="calendar alternate outline icon"></i>' +
-              new Date(
-                value.date ? value.date : value.lastmod
-              ).toLocaleDateString() +
-              "</span>";
-            value._date =
-              '<span class="ui label"><i class="calendar alternate outline icon"></i>' +
-              new Date(
-                value.date ? value.date : value.lastmod
-              ).toLocaleDateString() +
-              "</span>";
-            return value;
-          }
-        )
-      );
-    } catch (e) {
-      console.log(e.message);
-    }
-  });
-  if (
-    length &&
-    !isNaN(Number(length)) &&
-    length > 0 &&
-    length < dataChildren.length
-  ) {
-    dataChildren = dataChildren.slice(0, length);
-  }
-  if (that.data("random"))
-    dataChildren.sort(function () {
-      return 0.5 - Math.random();
-    });
-  return dataChildren;
-}
-/**
  * Запуск пользовательского кода из index.js
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function usrCode(hash, sel) {
   $.when(scripts.indexJs).done(function () {
@@ -192,8 +76,8 @@ function usrCode(hash, sel) {
 }
 /**
  * Запуск rmenu
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rMenu(hash, sel) {
   var rmenu = $("[data-id=rmenu]");
@@ -208,8 +92,8 @@ function rMenu(hash, sel) {
 }
 /**
  * Запуск accordition
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rAccordion(hash, sel) {
   $.when(scripts.semantic).done(function () {
@@ -218,12 +102,13 @@ function rAccordion(hash, sel) {
 }
 /**
  * Запуск carousel
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
 */
 function rCarousel(hash, sel) {
   $(sel + ' [data-id=carousel][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
+    //var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
+    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -292,8 +177,8 @@ function rCarousel(hash, sel) {
 }
 /**
  * Запуск deck
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rDeck(hash, sel) {
   $(sel + ' [data-id=deck][data-auto]').rdeck({
@@ -321,12 +206,13 @@ function rDeck(hash, sel) {
 }
 /**
  * Запуск cardgrid
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rCardgrid(hash, sel) {
   $(sel + ' [data-id=cardgrid][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
+    //var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
+    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -380,12 +266,14 @@ function rCardgrid(hash, sel) {
 }
 /**
  * Запуск particles 
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rParticles(hash, sel) {
   $(sel + ' [data-id=particles][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this)),
+    //var dataChildren = getChildren(hash, $(this)),
+    var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
+
       date = $(this).data("date"),
       description = $(this).data("description"),
       unlink = $(this).data("path");
@@ -439,12 +327,14 @@ function rParticles(hash, sel) {
 }
 /**
  * Запуск list
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rList(hash, sel) {
   $(sel + ' [data-id=list][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
+    //var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
+    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
+
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -507,12 +397,14 @@ function rList(hash, sel) {
 }
 /**
  * Запуск header
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rHeader(hash, sel) {
   $(sel + ' [data-id=header][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this)),
+    //var dataChildren = getChildren(hash, $(this)),
+    var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
+
       date = $(this).data("date"),
       description = $(this).data("description"),
       unlink = $(this).data("path");
@@ -558,12 +450,14 @@ function rHeader(hash, sel) {
 }
 /**
  * Запуск сетки с иконками
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rIcongrid(hash, sel) {
   $(sel + ' [data-id=icongrid][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this), '*[string(@id)]'),
+    //var dataChildren = getChildren(hash, $(this), '*[string(@id)]'),
+    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "index": index, "hash": hash}),
+
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -606,10 +500,16 @@ function rIcongrid(hash, sel) {
     "hash": hash
   });
 }
-/** Запуск breadcrumbs */
+/**
+ *  Запуск breadcrumbs
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
+ */
 function rBreadcrumbs(hash, sel) {
   $(sel + ' [data-id=breadcrumbs][data-auto]').each(function () {
-    var dataChildren = getChildren(hash, $(this), '*[string(@id)]', true),
+    //var dataChildren = getChildren(hash, $(this), '*[string(@id)]', true),
+    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "ancestor": true, "index": index, "hash": hash})
+
       date = $(this).data("date"),
       description = $(this).data("description"),
       reveal = $(this).data("reveal");
@@ -655,8 +555,8 @@ function rBreadcrumbs(hash, sel) {
 }
 /**
  * Запуск embed
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rEmbed(hash, sel) {
   $.when(scripts.semantic).done(function () {
@@ -667,8 +567,8 @@ function rEmbed(hash, sel) {
 }
 /**
  * Запуск sidebar
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rSidebar(hash, sel) {
   var rsidebar = $("#content").data("turbomenu");
@@ -678,8 +578,8 @@ function rSidebar(hash, sel) {
 }
 /**
  * Запуск AOS
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function rAos(hash, sel) {
   $("img").on("load", function () {
@@ -689,8 +589,8 @@ function rAos(hash, sel) {
 }
 /**
  * 
- * @param {*} hash 
- * @param {*} sel 
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {string} sel - Dom путь
  */
 function onhashchange(hash, sel) {
   /**
