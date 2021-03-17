@@ -60,8 +60,8 @@ var index = {};
 var usrScripts = [];
 /**
  * Запуск пользовательского кода из index.js
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function usrCode(hash, sel) {
   $.when(scripts.indexJs).done(function () {
@@ -76,8 +76,8 @@ function usrCode(hash, sel) {
 }
 /**
  * Запуск rmenu
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rMenu(hash, sel) {
   var rmenu = $("[data-id=rmenu]");
@@ -92,8 +92,8 @@ function rMenu(hash, sel) {
 }
 /**
  * Запуск accordition
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rAccordion(hash, sel) {
   $.when(scripts.semantic).done(function () {
@@ -102,8 +102,8 @@ function rAccordion(hash, sel) {
 }
 /**
  * Запуск carousel
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
 */
 function rCarousel(hash, sel) {
   $(sel + ' [data-id=carousel][data-auto]').each(function () {
@@ -177,8 +177,8 @@ function rCarousel(hash, sel) {
 }
 /**
  * Запуск cardgrid
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rCardgrid(hash, sel) {
   $(sel + ' [data-id=cardgrid][data-auto]').each(function () {
@@ -237,8 +237,8 @@ function rCardgrid(hash, sel) {
 }
 /**
  * Запуск particles 
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rParticles(hash, sel) {
   $(sel + ' [data-id=particles][data-auto]').each(function () {
@@ -298,8 +298,8 @@ function rParticles(hash, sel) {
 }
 /**
  * Запуск list
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rList(hash, sel) {
   $(sel + ' [data-id=list][data-auto]').each(function () {
@@ -368,8 +368,8 @@ function rList(hash, sel) {
 }
 /**
  * Запуск header
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rHeader(hash, sel) {
   $(sel + ' [data-id=header][data-auto]').each(function () {
@@ -421,8 +421,8 @@ function rHeader(hash, sel) {
 }
 /**
  * Запуск сетки с иконками
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rIcongrid(hash, sel) {
   $(sel + ' [data-id=icongrid][data-auto]').each(function () {
@@ -473,8 +473,8 @@ function rIcongrid(hash, sel) {
 }
 /**
  *  Запуск breadcrumbs
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rBreadcrumbs(hash, sel) {
   $(sel + ' [data-id=breadcrumbs][data-auto]').each(function () {
@@ -526,8 +526,8 @@ function rBreadcrumbs(hash, sel) {
 }
 /**
  * Запуск embed
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rEmbed(hash, sel) {
   $.when(scripts.semantic).done(function () {
@@ -538,8 +538,8 @@ function rEmbed(hash, sel) {
 }
 /**
  * Запуск sidebar
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rSidebar(hash, sel) {
   var rsidebar = $("#content").data("turbomenu");
@@ -549,8 +549,8 @@ function rSidebar(hash, sel) {
 }
 /**
  * Запуск AOS
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function rAos(hash, sel) {
   $("img").on("load", function () {
@@ -560,8 +560,8 @@ function rAos(hash, sel) {
 }
 /**
  * 
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 function onhashchange(hash, sel) {
   /**

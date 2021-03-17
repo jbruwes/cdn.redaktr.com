@@ -1,12 +1,12 @@
 import { getChildren } from "./children.js";
 /**
  * Колода - карточки в ряд с горизонтальной прокруткой
- * @param {Object.<Deferred>} scripts - Объект с промисами подгружаемых скриптов
- * @param {Object} index - Структура сайта
- * @param {string} pathname - Путь до корня сайта
- * @param {string} xAmzMetaIdentity - AWS Website Id
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
+ * @param {Object.<Deferred>} scripts Объект с промисами подгружаемых скриптов
+ * @param {Object} index Структура сайта
+ * @param {string} pathname Путь до корня сайта
+ * @param {string} xAmzMetaIdentity AWS Website Id
+ * @param {string} hash Строка пути относительно корня сайта
+ * @param {string} sel Dom путь
  */
 export function deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel) {
     /**
@@ -14,26 +14,30 @@ export function deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel) {
      */
     function eachDeck() {
         /**
-         * Список дочерних объектов
-         * @type 
+         * Массив дочерних объектов
+         * @const {Object[]}
          */
         const dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), "*[string(@image)]");
         /**
-         * 
+         * Флаг простановки даты
+         * @const {(number | boolean)}
          */
         const date = $(this).data("date");
         /**
-         * 
+         * Флаг простановки описания
+         * @const {(number | boolean)}
          */
         const description = $(this).data("description");
         /**
-         * 
+         * Подстановка описания в шаблон в зависимости от флага
+         * @param {Object} Текущий объект требующий обшаблонивания
          */
         function spanSubHeader(a) {
             return description ? a.item.description : '';
         }
         /**
-         * 
+         * Подстановка даты в шаблон в зависимости от флага
+         * @param {Object} Текущий объект требующий обшаблонивания
          */
         function spanUi(a) {
             return date ? a.item._miniBasicDate : '';
@@ -64,19 +68,22 @@ export function deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel) {
         }
     }
     /**
-     * 
+     * Инициализация слайдера для каждого подходящего объекта
      */
     function eachLightslider() {
         /**
-         * 
+         * Флаг указывающий на использования точек для переключения между слайдами
+         * @const {(number | boolean)}
          */
         const pager = $(this).data("pager");
         /**
-         * 
+         * Флаг указывающий на наличие кнопок вперед/назад
+         * @const {(number | boolean)}
          */
         const controls = $(this).data("controls");
         /**
-         * 
+         * Показываем объект после загрузки слайдера
+         * @param {Object} el Объект на который загружен слайдер
          */
         function onSliderLoad(el) {
             $(el).children('div').removeAttr('hidden');
@@ -111,13 +118,13 @@ export function deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel) {
         }
     }
     /**
-     * 
+     * Перебор объектов после загрузки скрипта слайдера
      */
     function doneLightslider() {
         $(sel + ' [data-id=deck]:not([contenteditable])').attr('contenteditable', 'false').each(eachLightslider);
     }
     /**
-     * 
+     * Перебор объектов для включения диммера после загрузки скрипта семантики
      */
     function doneSemantic() {
         $(sel + ' [data-id=deck] div.image:not([contenteditable])').attr('contenteditable', 'false').dimmer({
