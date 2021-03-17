@@ -7,7 +7,7 @@ import "./redaktr/rcont.js";
 import "./redaktr/rhashchange.js";
 import "./redaktr/rcorrector.js";
 import "./redaktr/rhashcalc.js";
-import "./redaktr/rchildren.js";
+import "./redaktr/children.js";
 import "./redaktr/rdeck.js";
 /**
  * Объект c подгруженными пресетами для патиклов
@@ -107,8 +107,8 @@ function rAccordion(hash, sel) {
 */
 function rCarousel(hash, sel) {
   $(sel + ' [data-id=carousel][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
-    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
+    var dataChildren = getChildren(index, hash, $(this), "*[string(@image)]"),
+    //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -211,8 +211,8 @@ function rDeck(hash, sel) {
  */
 function rCardgrid(hash, sel) {
   $(sel + ' [data-id=cardgrid][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
-    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
+    var dataChildren = getChildren(index, hash, $(this), "*[string(@image)]"),
+    //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
       date = $(this).data("date"),
       description = $(this).data("description");
     if (dataChildren.length) {
@@ -271,8 +271,8 @@ function rCardgrid(hash, sel) {
  */
 function rParticles(hash, sel) {
   $(sel + ' [data-id=particles][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this)),
-    var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
+    var dataChildren = getChildren(index, hash, $(this)),
+    //var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
 
       date = $(this).data("date"),
       description = $(this).data("description"),
@@ -332,8 +332,8 @@ function rParticles(hash, sel) {
  */
 function rList(hash, sel) {
   $(sel + ' [data-id=list][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this), "*[string(@image)]"),
-    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
+    var dataChildren = getChildren(index, hash, $(this), "*[string(@image)]"),
+    //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
 
       date = $(this).data("date"),
       description = $(this).data("description");
@@ -402,8 +402,8 @@ function rList(hash, sel) {
  */
 function rHeader(hash, sel) {
   $(sel + ' [data-id=header][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this)),
-    var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
+    var dataChildren = getChildren(index, hash, $(this)),
+    //var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
 
       date = $(this).data("date"),
       description = $(this).data("description"),
@@ -455,8 +455,8 @@ function rHeader(hash, sel) {
  */
 function rIcongrid(hash, sel) {
   $(sel + ' [data-id=icongrid][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this), '*[string(@id)]'),
-    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "index": index, "hash": hash}),
+    var dataChildren = getChildren(index, hash, $(this), '*[string(@id)]'),
+    //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "index": index, "hash": hash}),
 
       date = $(this).data("date"),
       description = $(this).data("description");
@@ -507,8 +507,8 @@ function rIcongrid(hash, sel) {
  */
 function rBreadcrumbs(hash, sel) {
   $(sel + ' [data-id=breadcrumbs][data-auto]').each(function () {
-    //var dataChildren = getChildren(hash, $(this), '*[string(@id)]', true),
-    var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "ancestor": true, "index": index, "hash": hash})
+    var dataChildren = getChildren(index, hash, $(this), '*[string(@id)]', true),
+    //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "ancestor": true, "index": index, "hash": hash})
 
       date = $(this).data("date"),
       description = $(this).data("description"),

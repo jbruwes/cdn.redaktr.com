@@ -4,7 +4,8 @@
     switch (options.action) {
       case 'render':
         return this.each(function() {
-          var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": options.index, "hash": options.hash}),
+          var dataChildren = getChildren(options.index, options.hash, $(this), "*[string(@image)]"),
+          //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": options.index, "hash": options.hash}),
             date = $(this).data("date"),
             description = $(this).data("description");
           if (dataChildren.length) {
