@@ -7,7 +7,7 @@
 * @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self
 * @return {Array}
 */
-function getChildren(index, hash, that, attr, ancestor) {
+export function getChildren(index, hash, that, attr, ancestor) {
     /**
      * Пути через запятую, по кторым ищутся дочерние элементы
      * @type {(string|string[])}

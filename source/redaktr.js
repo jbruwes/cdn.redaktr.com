@@ -7,7 +7,7 @@ import "./redaktr/rcont.js";
 import "./redaktr/rhashchange.js";
 import "./redaktr/rcorrector.js";
 import "./redaktr/rhashcalc.js";
-import "./redaktr/children.js";
+import { getChildren } from "./redaktr/children.js";
 import "./redaktr/rdeck.js";
 /**
  * Объект c подгруженными пресетами для патиклов
