@@ -5,7 +5,6 @@ const
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   MinifyBundledPlugin = require('minify-bundled-webpack-plugin');
 
-
 module.exports = {
   mode: 'production',
   entry: './source/redaktr.js',
@@ -23,9 +22,17 @@ module.exports = {
       { from: 'resource/redaktr.cdn.css', to: 'redaktr.cdn.min.css' }
     ]),
     new MinifyBundledPlugin({
-      patterns: ['*.css','**/particles/*.json'],
+      patterns: ['*.css', '**/particles/*.json'],
     })
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: "babel-loader"
+      }
+    ]
+  },
   output: {
     filename: 'redaktr.min.js',
     path: path.resolve(__dirname, 'dist'),

@@ -8,7 +8,7 @@ import "./redaktr/rhashchange.js";
 import "./redaktr/rcorrector.js";
 import "./redaktr/rhashcalc.js";
 import { getChildren } from "./redaktr/children.js";
-import "./redaktr/rdeck.js";
+import { deck } from "./redaktr/deck.js";
 /**
  * Объект c подгруженными пресетами для патиклов
  * @const {Object}
@@ -172,35 +172,6 @@ function rCarousel(hash, sel) {
       } catch (e) {
         console.log(e.message);
       }
-    });
-  });
-}
-/**
- * Запуск deck
- * @param {string} hash - Строка пути относительно корня сайта
- * @param {string} sel - Dom путь
- */
-function rDeck(hash, sel) {
-  $(sel + ' [data-id=deck][data-auto]').rdeck({
-    "action": "render",
-    "index": index,
-    "hash": hash
-  });
-  $(sel + ' [data-id=deck]').rcorrector({
-    "index": index,
-    "pathname": pathname,
-    "xAmzMetaIdentity": xAmzMetaIdentity,
-    "hash": hash
-  });
-  $.when(scripts.lightslider).done(function () {
-    $(sel + ' [data-id=deck]:not([contenteditable])').attr('contenteditable', 'false').rdeck({
-      "action": "lightSlider"
-    });
-  });
-  $.when(scripts.semantic).done(function () {
-    $(sel + ' [data-id=deck] div.image:not([contenteditable])').attr('contenteditable', 'false').dimmer({
-      transition: 'fade up',
-      on: 'hover'
     });
   });
 }
@@ -598,7 +569,7 @@ function onhashchange(hash, sel) {
    */
   function runComponents() {
     rCarousel(hash, sel);
-    rDeck(hash, sel);
+    deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel);
     rCardgrid(hash, sel);
     rParticles(hash, sel);
     rList(hash, sel);
