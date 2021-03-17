@@ -1,25 +1,26 @@
 /**
-* Получение массива дочерних объектов.
-* @param {Object} index - Структура сайта
-* @param {string} hash - Строка пути относительно корня сайта
-* @param {Object} that - Указатель на текущий объект
-* @param {string} [attr=""] - Путь xpath
-* @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self
-* @return {Array}
-*/
-export function getChildren(index, hash, that, attr, ancestor) {
+ * Получение массива дочерних объектов
+ * @param {Object} index - Структура сайта
+ * @param {string} hash - Строка пути относительно корня сайта
+ * @param {(number | boolean)} deep - Флаг использования рекурсии по дочерним объектам
+ * @param {number} length - Количество дочерних объектов для изъятия
+ * @param {(number | boolean)} reveal - Флаг указывающий показывать ли скрытые объекты
+ * @param {(number | boolean)} random - Флаг указывающий на необходимость перемешать результат
+ * @param {string} path - CSV путей до дочерних объектов
+ * @param {string} [attr=""] - Путь xpath
+ * @param {boolean} [ancestor=false] - Заведует включением параметра xpath - ancestor-or-self
+ * @return {Object[]} Массив дочерних объектов
+ */
+export function getChildren(index, hash, deep, length, reveal, random, path, attr, ancestor) {
     /**
      * Пути через запятую, по кторым ищутся дочерние элементы
      * @type {(string|string[])}
      */
-    var dataHashes = $.trim(that.data("path"));
+    var dataHashes = $.trim(path);
     /**
      * @type {Array}
      */
     var dataChildren = [];
-    var deep = that.data("deep");
-    var length = that.data("length");
-    var reveal = that.data("reveal");
     attr = attr ? attr : "";
     dataHashes = dataHashes ? dataHashes : hash;
     dataHashes = $.map(dataHashes.split(","), function (value, key) {
@@ -109,7 +110,7 @@ export function getChildren(index, hash, that, attr, ancestor) {
     ) {
         dataChildren = dataChildren.slice(0, length);
     }
-    if (that.data("random"))
+    if (random)
         dataChildren.sort(function () {
             return 0.5 - Math.random();
         });

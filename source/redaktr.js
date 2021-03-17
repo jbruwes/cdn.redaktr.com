@@ -107,7 +107,7 @@ function rAccordion(hash, sel) {
 */
 function rCarousel(hash, sel) {
   $(sel + ' [data-id=carousel][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this), "*[string(@image)]"),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), "*[string(@image)]"),
     //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
       date = $(this).data("date"),
       description = $(this).data("description");
@@ -182,7 +182,7 @@ function rCarousel(hash, sel) {
  */
 function rCardgrid(hash, sel) {
   $(sel + ' [data-id=cardgrid][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this), "*[string(@image)]"),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), "*[string(@image)]"),
     //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
       date = $(this).data("date"),
       description = $(this).data("description");
@@ -242,7 +242,7 @@ function rCardgrid(hash, sel) {
  */
 function rParticles(hash, sel) {
   $(sel + ' [data-id=particles][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this)),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path")),
     //var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
 
       date = $(this).data("date"),
@@ -303,7 +303,7 @@ function rParticles(hash, sel) {
  */
 function rList(hash, sel) {
   $(sel + ' [data-id=list][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this), "*[string(@image)]"),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), "*[string(@image)]"),
     //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@image)]", "index": index, "hash": hash}),
 
       date = $(this).data("date"),
@@ -373,7 +373,7 @@ function rList(hash, sel) {
  */
 function rHeader(hash, sel) {
   $(sel + ' [data-id=header][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this)),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path")),
     //var dataChildren = $.rchildren({"that": $(this), "index": index, "hash": hash}),
 
       date = $(this).data("date"),
@@ -426,7 +426,7 @@ function rHeader(hash, sel) {
  */
 function rIcongrid(hash, sel) {
   $(sel + ' [data-id=icongrid][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this), '*[string(@id)]'),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), '*[string(@id)]'),
     //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "index": index, "hash": hash}),
 
       date = $(this).data("date"),
@@ -478,7 +478,7 @@ function rIcongrid(hash, sel) {
  */
 function rBreadcrumbs(hash, sel) {
   $(sel + ' [data-id=breadcrumbs][data-auto]').each(function () {
-    var dataChildren = getChildren(index, hash, $(this), '*[string(@id)]', true),
+    var dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), '*[string(@id)]', true),
     //var dataChildren = $.rchildren({"that": $(this), "attr": "*[string(@id)]", "ancestor": true, "index": index, "hash": hash})
 
       date = $(this).data("date"),

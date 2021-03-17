@@ -1,6 +1,6 @@
 import { getChildren } from "./children.js";
 /**
- * Получение массива дочерних объектов
+ * Колода - карточки в ряд с горизонтальной прокруткой
  * @param {Object.<Deferred>} scripts - Объект с промисами подгружаемых скриптов
  * @param {Object} index - Структура сайта
  * @param {string} pathname - Путь до корня сайта
@@ -10,13 +10,14 @@ import { getChildren } from "./children.js";
  */
 export function deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel) {
     /**
-     * 
+     * Рендер каждой карточки по шаблону
      */
     function eachDeck() {
         /**
-         * 
+         * Список дочерних объектов
+         * @type 
          */
-        const dataChildren = getChildren(index, hash, $(this), "*[string(@image)]");
+        const dataChildren = getChildren(index, hash, $(this).data("deep"), $(this).data("length"), $(this).data("reveal"), $(this).data("random"), $(this).data("path"), "*[string(@image)]");
         /**
          * 
          */
