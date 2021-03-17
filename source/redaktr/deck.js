@@ -1,3 +1,4 @@
+import { getChildren } from "./redaktr/children.js";
 /**
  * Получение массива дочерних объектов
  * @param {Object.<Deferred>} scripts - Объект с промисами подгружаемых скриптов
