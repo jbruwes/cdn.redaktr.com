@@ -16,7 +16,7 @@ export function deck(scripts, index, pathname, xAmzMetaIdentity, hash, sel) {
         /**
          * 
          */
-        const dataChildren = getChildren($(this), "*[string(@image)]");
+        const dataChildren = getChildren(index, hash, $(this), "*[string(@image)]");
         /**
          * 
          */
